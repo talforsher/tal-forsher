@@ -1,3 +1,23 @@
 .App {
   text-align: center;
 }
+
+.countries {
+  width: fit-content;
+  margin: 2rem auto;
+}
+
+.country {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+  height: 4rem;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0px 0px 4px 1px #ccc;
+  align-items: center;
+}
+
+.country:hover {
+  box-shadow: 0px 0px 4px 2px #ccc;
+}

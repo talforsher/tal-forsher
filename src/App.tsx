@@ -30,11 +30,13 @@ function App() {
 
   return (
     <div className="App">
-      {countriesList.map((country) => (
-        <li>
-          {country.name} <img src={country.flag} alt={country.name} />
-        </li>
-      ))}
+      <ul className="countries">
+        {countriesList.map((country) => (
+          <li className="country">
+            {country.name} <img width={60} src={country.flag} alt={country.name} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
