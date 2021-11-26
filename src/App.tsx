@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 
 interface Raw {
@@ -12,11 +12,13 @@ interface Country {
 }
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [countriesList, setCountriesList] = useState<Country[]>([]);
   const [refetch, setRefetch] = useState<{ query: string; count: number }>({
     query: "",
     count: 0,
   });
+
   useEffect(() => {
     const fetchCountries = async () => {
       const data = await fetch(
@@ -44,10 +46,11 @@ function App() {
     fetchCountries();
   }, [refetch.count]);
 
-  return (
-    <div className="App">
-      <ul className="countries">
-        {countriesList.map(({ name, flag }) => (
+  const listToRender = useCallback(
+    () =>
+      countriesList
+        .filter((country) => country.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map(({ name, flag }) => (
           <li key={name} className="country">
             {name}
             {flag ? (
@@ -59,8 +62,14 @@ function App() {
               />
             )}
           </li>
-        ))}
-      </ul>
+        )),
+    [searchQuery, countriesList],
+  );
+
+  return (
+    <div className="App">
+      <input type="text" onChange={(e) => setSearchQuery(e.target.value)} />
+      <ul className="countries">{listToRender()}</ul>
     </div>
   );
 }
