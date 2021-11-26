@@ -31,9 +31,20 @@ function App() {
   return (
     <div className="App">
       <ul className="countries">
-        {countriesList.map((country) => (
+        {[
+          {
+            name: "test",
+            flag: Math.round(Math.random() * 2) ? "https://flagcdn.com/sd.svg" : undefined,
+          },
+          ...countriesList,
+        ].map((country) => (
           <li className="country">
-            {country.name} <img width={60} src={country.flag} alt={country.name} />
+            {country.name}{" "}
+            {country.flag ? (
+              <img width={40} src={country.flag} alt={country.name} />
+            ) : (
+              <div className="default" onClick={() => setRefetch((curr) => curr + 1)} />
+            )}
           </li>
         ))}
       </ul>
