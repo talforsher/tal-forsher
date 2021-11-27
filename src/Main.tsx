@@ -11,7 +11,7 @@ const Main = ({ setRefetch, countriesList }: any) => {
         .filter((country: any) => country.name.toLowerCase().includes(searchQuery.toLowerCase()))
         .map(({ name, flag }: any) => (
           <li key={name} className="country">
-            <Link to="flag" state={{ image: flag }}>
+            <Link to="flag" state={{ country: { name, flag } }}>
               {name}
             </Link>
             {flag ? (
