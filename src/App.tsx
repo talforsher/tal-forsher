@@ -1,5 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Main from "./Main";
+import Flag from "./Flag";
 
 interface Raw {
   name: { common: string };
@@ -11,8 +13,7 @@ interface Country {
   flag?: string;
 }
 
-function App() {
-  const [searchQuery, setSearchQuery] = useState<string>("");
+const App = () => {
   const [countriesList, setCountriesList] = useState<Country[]>([]);
   const [refetch, setRefetch] = useState<{ query: string; count: number }>({
     query: "",
@@ -46,32 +47,14 @@ function App() {
     fetchCountries();
   }, [refetch.count]);
 
-  const listToRender = useCallback(
-    () =>
-      countriesList
-        .filter((country) => country.name.toLowerCase().includes(searchQuery.toLowerCase()))
-        .map(({ name, flag }) => (
-          <li key={name} className="country">
-            {name}
-            {flag ? (
-              <img width={40} src={flag} alt={name} />
-            ) : (
-              <div
-                className="default"
-                onClick={() => setRefetch((curr) => ({ query: name, count: curr.count + 1 }))}
-              />
-            )}
-          </li>
-        )),
-    [searchQuery, countriesList],
-  );
-
   return (
-    <div className="App">
-      <input type="text" onChange={(e) => setSearchQuery(e.target.value)} />
-      <ul className="countries">{listToRender()}</ul>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main setRefetch={setRefetch} countriesList={countriesList} />} />
+        <Route path="flag" element={<Flag />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
