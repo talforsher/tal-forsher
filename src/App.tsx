@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./Main";
 import Flag from "./Flag";
@@ -20,6 +20,14 @@ const App = () => {
     count: 0,
   });
 
+  const storage: Country[] = useMemo(
+    () =>
+      Object.values(localStorage).flatMap((country) =>
+        country.includes("name") ? JSON.parse(country) : [],
+      ),
+    [localStorage],
+  );
+
   useEffect(() => {
     const fetchCountries = async () => {
       const data = await fetch(
@@ -40,7 +48,12 @@ const App = () => {
               }
               return country;
             })
-          : countriesListToUpdate,
+          : [
+              ...storage,
+              ...countriesListToUpdate.filter(
+                (country) => !storage.map((object) => object.name).includes(country.name),
+              ),
+            ],
       );
     };
 
