@@ -46,6 +46,14 @@ const Main = ({
   return (
     <div className="App">
       <input type="text" onChange={(e) => setSearchQuery(e.target.value)} />
+      <button
+        onClick={() => {
+          window.localStorage.clear();
+          window.location.reload();
+        }}
+      >
+        Refresh
+      </button>
       <ul className="countries">{listToRender()}</ul>
     </div>
   );
