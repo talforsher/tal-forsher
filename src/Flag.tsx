@@ -1,9 +1,13 @@
 import { useLocation } from "react-router";
 
 const Flag = () => {
-  const location = useLocation();
-
-  return <img src={location.state.image} alt="flag" />;
+  const {
+    state: {
+      country: { name, flag },
+    },
+  } = useLocation();
+  localStorage.setItem(name, JSON.stringify({ name, flag }));
+  return <img src={flag} alt="flag" />;
 };
 
 export default Flag;
