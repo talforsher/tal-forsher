@@ -2,14 +2,30 @@ import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
 
-const Main = ({ setRefetch, countriesList }: any) => {
+interface Country {
+  name: string;
+  flag?: string;
+}
+
+interface Refetch {
+  query: string;
+  count: number;
+}
+
+const Main = ({
+  setRefetch,
+  countriesList,
+}: {
+  setRefetch: React.Dispatch<React.SetStateAction<Refetch>>;
+  countriesList: Country[];
+}) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const listToRender = useCallback(
     () =>
       countriesList
-        .filter((country: any) => country.name.toLowerCase().includes(searchQuery.toLowerCase()))
-        .map(({ name, flag }: any) => (
+        .filter((country) => country.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map(({ name, flag }) => (
           <li key={name} className="country">
             <Link to="flag" state={{ country: { name, flag } }}>
               {name}
@@ -19,7 +35,7 @@ const Main = ({ setRefetch, countriesList }: any) => {
             ) : (
               <div
                 className="default"
-                onClick={() => setRefetch((curr: any) => ({ query: name, count: curr.count + 1 }))}
+                onClick={() => setRefetch((curr) => ({ query: name, count: curr.count + 1 }))}
               />
             )}
           </li>
