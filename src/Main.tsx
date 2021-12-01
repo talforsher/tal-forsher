@@ -2,15 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
 
-interface Country {
-  name: string;
-  flag?: string;
-}
-
-interface Refetch {
-  query: string;
-  count: number;
-}
+import {Refetch, Country} from './types'
 
 const Main = ({
   setRefetch,

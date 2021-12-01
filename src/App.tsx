@@ -1,17 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Raw, Country} from './types'
 import Main from "./Main";
 import Flag from "./Flag";
-
-interface Raw {
-  name: { common: string };
-  flags: { svg?: string };
-}
-
-interface Country {
-  name: string;
-  flag?: string;
-}
 
 const App = () => {
   const [countriesList, setCountriesList] = useState<Country[]>([]);
