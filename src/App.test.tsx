@@ -47,4 +47,19 @@ describe("App Container", () => {
         fireEvent.click(btnWrapper);
         expect(within(wrapper).queryByDisplayValue("")).toBeNull();
     });
+
+    it("should render countries list", async () => {
+        const { container } = render(<App />);
+        await waitFor(
+            () => {
+                expect(
+                    container.querySelector('[class="country"]'),
+                ).toBeInTheDocument();
+            },
+            { timeout: 10000 },
+        );
+        let wrapper: any = container.querySelectorAll('[class="country"]');
+        expect(wrapper).toHaveLength(250);
+        expect(wrapper[0]).toMatchSnapshot();
+    });
 });
