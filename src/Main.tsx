@@ -16,7 +16,7 @@ const Main = ({
   const listToRender = useCallback(
     () =>
       countriesList
-        .filter((country) => country.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .filter((country) => country?.name?.toLowerCase().includes(searchQuery.toLowerCase()))
         .map(({ name, flag }) => (
           <li key={name} className="country">
             <Link to="flag" state={{ country: { name, flag } }}>
