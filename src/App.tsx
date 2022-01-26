@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {Raw, Country} from './types'
+import { Raw, Country } from './types'
 import Main from "./Main";
 import Flag from "./Flag";
 
@@ -32,19 +32,19 @@ const App = () => {
       setCountriesList(
         refetch.count
           ? countriesList.map((country) => {
-              if (country.name === refetch.query) {
-                return Object.assign({}, countriesListToUpdate[0], {
-                  flag: countriesListToUpdate[0].flag,
-                });
-              }
-              return country;
-            })
+            if (country.name === refetch.query) {
+              return Object.assign({}, countriesListToUpdate[0], {
+                flag: countriesListToUpdate[0].flag,
+              });
+            }
+            return country;
+          })
           : [
-              ...storage,
-              ...countriesListToUpdate.filter(
-                (country) => !storage.map((object) => object.name).includes(country.name),
-              ),
-            ],
+            ...storage,
+            ...countriesListToUpdate.filter(
+              (country) => !storage.map((object) => object.name).includes(country.name),
+            ),
+          ],
       );
     };
 
