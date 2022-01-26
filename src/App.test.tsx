@@ -62,4 +62,20 @@ describe("App Container", () => {
         expect(wrapper).toHaveLength(250);
         expect(wrapper[0]).toMatchSnapshot();
     });
+
+    it("should render flag when click list item", async () => {
+        const { container } = render(<App />);
+        await waitFor(
+            () => {
+                expect(
+                    container.querySelector('[class="country"]'),
+                ).toBeInTheDocument();
+            },
+            { timeout: 10000 },
+        );
+        let wrapper: any = container.querySelector('[class="country"] > a');
+        expect(wrapper).toBeDefined();
+        fireEvent.click(wrapper);
+        expect(container).toMatchSnapshot();
+    });
 });
